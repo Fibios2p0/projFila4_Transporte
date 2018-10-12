@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace projFila4_Transporte
+{
+    class Visitantes
+    {
+        #region atributos
+        Queue<Visitante> filaEmbarque = new Queue<Visitante>();
+        #endregion
+
+        #region propriedades
+        #endregion
+
+        #region construtores
+        #endregion
+
+        #region metodos
+        #endregion
+    }
+}
