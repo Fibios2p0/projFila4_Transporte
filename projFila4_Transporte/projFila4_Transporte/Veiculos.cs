@@ -25,7 +25,7 @@ namespace projFila4_Transporte
         {
             if (!isVeiculo(veiculo))
             {
-                filaVeicDisp.Enqueue(veiculo);
+                FilaVeicDisp.Enqueue(veiculo);
                 return true;
             }
             else return false;
@@ -39,6 +39,9 @@ namespace projFila4_Transporte
             }
             return false;
         }
+
+
+
         #endregion
     }
 }

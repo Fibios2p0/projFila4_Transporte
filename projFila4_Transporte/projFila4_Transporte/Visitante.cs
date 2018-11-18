@@ -23,6 +23,14 @@ namespace projFila4_Transporte
         #endregion
 
         #region metodos
+
+        public String dadosDoVisitante()
+        {
+            String str = this.numeroInscricao.ToString();
+            return str;
+
+        }
+
         #endregion
     }
 }

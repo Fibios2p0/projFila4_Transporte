@@ -19,15 +19,15 @@ namespace projFila4_Transporte
         public string Placa
         {
             get { return placa; }
-            set { if (placa.Length == 7 && validarPlaca(value)) placa = value; }
+            set { /*if (placa.Length == 7 && validarPlaca(value))*/ placa = value; }
         }
         public int Lotacao
         {
             get { return lotacao; }
-            set {
-                if (lotacao > 0)lotacao = value;
-            }
+            set { lotacao = value;}
         }
+
+        
         #endregion
 
         #region construtores
@@ -49,9 +49,15 @@ namespace projFila4_Transporte
             return false; //se a placa for inválida, retorna FALSE             
         }
 
+        public String dadosDoVeiculo() {
+            String str = this.Placa + "-" + this.nomeMotorista + "-" + this.Lotacao;
+            return str;
+            
+        }
+
         #endregion
 
-        #region overload
+        #region sobreescritas
         public override bool Equals(object obj)
         {
             Veiculo v = (Veiculo)obj;
