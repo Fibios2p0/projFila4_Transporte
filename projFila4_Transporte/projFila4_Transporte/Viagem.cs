@@ -39,8 +39,25 @@ namespace projFila4_Transporte
         #region metodos
         public string Dados()
         {
-            return $"Veiculo placa {Veiculo.Placa} Hora: {HoraViagem} Tranferiu os vistantes:\n{Passageiros}  ";
+            StringBuilder strBuild = new StringBuilder();
+
+            foreach (Visitante v in Passageiros) {
+                strBuild.Append(v);
+                strBuild.Append(" - ");            }
+
+            return $"Veiculo placa {Veiculo.Placa} Hora: {HoraViagem} Tranferiu os vistantes:\n{strBuild.ToString()}  ";
         }
+        #endregion
+
+
+        #region sobreescritas
+
+        public override bool Equals(object obj)
+        {
+            Viagem v = (Viagem)obj;
+            return this.HoraViagem.Equals(v.HoraViagem);
+        }
+
         #endregion
     }
 }

@@ -64,7 +64,7 @@
             this.tbControl.Location = new System.Drawing.Point(12, 12);
             this.tbControl.Name = "tbControl";
             this.tbControl.SelectedIndex = 0;
-            this.tbControl.Size = new System.Drawing.Size(352, 596);
+            this.tbControl.Size = new System.Drawing.Size(468, 596);
             this.tbControl.TabIndex = 0;
             // 
             // tbCadastroVeiculos
@@ -81,7 +81,7 @@
             this.tbCadastroVeiculos.Location = new System.Drawing.Point(4, 22);
             this.tbCadastroVeiculos.Name = "tbCadastroVeiculos";
             this.tbCadastroVeiculos.Padding = new System.Windows.Forms.Padding(3);
-            this.tbCadastroVeiculos.Size = new System.Drawing.Size(344, 570);
+            this.tbCadastroVeiculos.Size = new System.Drawing.Size(460, 570);
             this.tbCadastroVeiculos.TabIndex = 0;
             this.tbCadastroVeiculos.Text = "Cadastro de Veículos";
             this.tbCadastroVeiculos.UseVisualStyleBackColor = true;
@@ -97,7 +97,7 @@
             this.tbCheckin.Location = new System.Drawing.Point(4, 22);
             this.tbCheckin.Name = "tbCheckin";
             this.tbCheckin.Padding = new System.Windows.Forms.Padding(3);
-            this.tbCheckin.Size = new System.Drawing.Size(344, 570);
+            this.tbCheckin.Size = new System.Drawing.Size(460, 570);
             this.tbCheckin.TabIndex = 1;
             this.tbCheckin.Text = "Check-In Visitantes";
             this.tbCheckin.UseVisualStyleBackColor = true;
@@ -228,7 +228,7 @@
             this.tbViagens.Controls.Add(this.label1);
             this.tbViagens.Location = new System.Drawing.Point(4, 22);
             this.tbViagens.Name = "tbViagens";
-            this.tbViagens.Size = new System.Drawing.Size(344, 570);
+            this.tbViagens.Size = new System.Drawing.Size(460, 570);
             this.tbViagens.TabIndex = 2;
             this.tbViagens.Text = "Viagens";
             this.tbViagens.UseVisualStyleBackColor = true;
@@ -267,14 +267,14 @@
             this.lstViagensPorVeiculo.FormattingEnabled = true;
             this.lstViagensPorVeiculo.Location = new System.Drawing.Point(22, 78);
             this.lstViagensPorVeiculo.Name = "lstViagensPorVeiculo";
-            this.lstViagensPorVeiculo.Size = new System.Drawing.Size(302, 472);
+            this.lstViagensPorVeiculo.Size = new System.Drawing.Size(416, 472);
             this.lstViagensPorVeiculo.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 620);
+            this.ClientSize = new System.Drawing.Size(581, 620);
             this.Controls.Add(this.tbControl);
             this.Name = "Form1";
             this.Text = "Controle de Viagens - Centro de Exposições X";

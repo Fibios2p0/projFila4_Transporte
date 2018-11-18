@@ -14,6 +14,7 @@ namespace projFila4_Transporte
     {
 
         static Veiculos veiculos = new Veiculos();
+        static Veiculo veiculo = null;
         static Viagens viagens = new Viagens();
         Viagem viagem = new Viagem();
         static Visitantes visitantes = new Visitantes();
@@ -77,29 +78,26 @@ namespace projFila4_Transporte
                     viagens.adicionarViagens(viagem);
                 }
             }
-            catch {
-
+            catch (Exception error) {
+                MessageBox.Show(error.ToString());
             }
            
         }
 
-        private void cbbVeiculosCadastrados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
+        private void cbbVeiculosCadastrados_SelectedIndexChanged(object sender, EventArgs e) {
+
+            lstViagensPorVeiculo.Items.Clear();
+
+
         }
 
-        private void cbbVeiculosCadastrados_MouseClick(object sender, MouseEventArgs e)
-        {
-            
-        }
 
-        private void cbbVeiculosCadastrados_SelectedValueChanged(object sender, EventArgs e)
-        {
-            foreach (Visitante v in viagem.Passageiros)
-            {
 
-                lstViagensPorVeiculo.Items.Add(v.dadosDoVisitante().ToString());
-            }
+        private void cbbVeiculosCadastrados_MouseClick(object sender, MouseEventArgs e){ }
+        private void cbbVeiculosCadastrados_SelectedValueChanged(object sender, EventArgs e){  }
+        private void cbbVeiculosCadastrados_SelectedValue(object sender, EventArgs e){
+
+
         }
     }
 }
