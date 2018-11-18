@@ -8,17 +8,37 @@ namespace projFila4_Transporte
 {
     class Veiculos
     {
-        Queue<Veiculo> filaVeicDisp = new Queue<Veiculo>();
         #region atributos
+        private Queue<Veiculo> filaVeicDisp = new Queue<Veiculo>();
         #endregion
 
         #region propriedades
+        public Queue<Veiculo> FilaVeicDisp { get { return filaVeicDisp; } }
         #endregion
 
         #region construtores
+        public Veiculos() { }
         #endregion
 
         #region metodos
+        public bool adicionarVeiculo(Veiculo veiculo)
+        {
+            if (!isVeiculo(veiculo))
+            {
+                filaVeicDisp.Enqueue(veiculo);
+                return true;
+            }
+            else return false;
+        }
+
+        public bool isVeiculo(Veiculo veiculo)
+        {
+            foreach (Veiculo v in filaVeicDisp)
+            {
+                if (v.Equals(veiculo)) return true ;
+            }
+            return false;
+        }
         #endregion
     }
 }

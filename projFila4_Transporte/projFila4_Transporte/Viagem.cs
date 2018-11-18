@@ -8,7 +8,6 @@ namespace projFila4_Transporte
 {
     class Viagem
     {
-
         #region atributos
         Veiculo veiculo;
         DateTime horaViagem;

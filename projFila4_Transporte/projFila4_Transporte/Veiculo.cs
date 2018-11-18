@@ -14,13 +14,12 @@ namespace projFila4_Transporte
         private string placa, nomeMotorista;
         private int lotacao;
         #endregion
-
-
+        
         #region propriedades
         public string Placa
         {
             get { return placa; }
-            set { if (placa.Length == 7 && validaPlaca(value)) placa = value; }
+            set { if (placa.Length == 7 && validarPlaca(value)) placa = value; }
         }
         public int Lotacao
         {
@@ -41,7 +40,7 @@ namespace projFila4_Transporte
         #endregion
 
         #region metodos
-        public bool validaPlaca(string value)
+        public bool validarPlaca(string value)
         {
             Regex regex = new Regex(@"^[a-zA-Z]{3}\-\d{4}$");
 
@@ -50,6 +49,14 @@ namespace projFila4_Transporte
             return false; //se a placa for inválida, retorna FALSE             
         }
 
+        #endregion
+
+        #region overload
+        public override bool Equals(object obj)
+        {
+            Veiculo v = (Veiculo)obj;
+            return this.placa.Equals(v.placa);
+        }
         #endregion
     }
 }
