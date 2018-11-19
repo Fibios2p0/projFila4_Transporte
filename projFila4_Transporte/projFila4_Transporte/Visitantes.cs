@@ -9,11 +9,11 @@ namespace projFila4_Transporte
     class Visitantes
     {
         #region atributos
-        private Queue<Visitante> filaEmbarque = new Queue<Visitante>();
+        private Queue<Visitante> filaDeVisitantes = new Queue<Visitante>();
         #endregion
 
         #region propriedades
-        public Queue<Visitante> FilaEmbarque { get { return filaEmbarque; } }
+        public Queue<Visitante> FilaDeVisitantes { get { return filaDeVisitantes; } }
         #endregion
 
         #region construtores
@@ -23,23 +23,15 @@ namespace projFila4_Transporte
 
         public bool adicionarVisitante(Visitante visitante)
         {
-            if (!isVisitante(visitante))
+            try
             {
-                filaEmbarque.Enqueue(visitante);
+                filaDeVisitantes.Enqueue(visitante);
                 return true;
             }
-            else return false;
-        }
-
-        public bool isVisitante(Visitante visitante)
-        {
-            foreach (Visitante v in filaEmbarque)
-            {
-                if (v.Equals(v)) return true;
+            catch (Exception e){
+                return false;
             }
-            return false;
         }
-
 
         #endregion
     }

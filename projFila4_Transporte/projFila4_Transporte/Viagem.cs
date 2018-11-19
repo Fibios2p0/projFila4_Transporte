@@ -11,14 +11,14 @@ namespace projFila4_Transporte
         #region atributos
         Veiculo veiculo;
         DateTime horaViagem;
-        Queue<Visitante> passageiros = new Queue<Visitante>();
+        Queue<Visitante> visitantes = new Queue<Visitante>();
         #endregion
 
         #region propriedades
 
         public DateTime HoraViagem { get { return this.horaViagem; } set  {horaViagem = value;} }
         public Veiculo Veiculo { get { return this.veiculo; } set { veiculo = value; } }
-        public Queue<Visitante> Passageiros { get { return this.passageiros; } set { this.passageiros = value; } }
+        public Queue<Visitante> Visitantes { get { return this.visitantes; } set { this.visitantes = value; } }
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace projFila4_Transporte
         public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> passageiros) {
             this.Veiculo = veiculo;
             this.HoraViagem = horaViagem;
-            this.Passageiros = passageiros;
+            this.Visitantes = passageiros;
         }
 
         #endregion
@@ -41,11 +41,14 @@ namespace projFila4_Transporte
         {
             StringBuilder strBuild = new StringBuilder();
 
-            foreach (Visitante v in Passageiros) {
-                strBuild.Append(v);
-                strBuild.Append(" - ");            }
+            foreach (Visitante v in visitantes) {
 
-            return $"Veiculo placa {Veiculo.Placa} Hora: {HoraViagem} Tranferiu os vistantes:\n{strBuild.ToString()}  ";
+                strBuild.Append(v);
+                strBuild.Append(", ");
+                
+            }
+
+            return $"Veículo: {this.veiculo.Placa} Hora: {this.HoraViagem.Hour} Visitantes: {strBuild.ToString()}";
         }
         #endregion
 

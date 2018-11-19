@@ -23,21 +23,14 @@ namespace projFila4_Transporte
 
         public bool adicionarViagens(Viagem viagem)
         {
-            if (!isViagem(viagem))
-            {
+            try {
                 ListaViagens.Enqueue(viagem);
                 return true;
             }
-            else return false;
-        }
-
-        public bool isViagem(Viagem viagem)
-        {
-            foreach (Viagem v in ListaViagens)
-            {
-                if (v.Equals(v)) return true;
+            catch (Exception e) {
+                return false;
             }
-            return false;
+            
         }
 
         #endregion
