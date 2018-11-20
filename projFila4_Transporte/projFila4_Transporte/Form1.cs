@@ -49,6 +49,8 @@ namespace projFila4_Transporte
         {
             try
             {
+
+
                 if (visitantes.FilaDeVisitantes.Count() > 0 && veiculos.FilaDeVeiculos.Peek().Lotacao > 0)
                 {
                                      
@@ -60,12 +62,14 @@ namespace projFila4_Transporte
                     veiculo.Saldo += (visitantes.FilaDeVisitantes.Count() * 5);
                     viagens.adicionarViagens(new Viagem(veiculos.FilaDeVeiculos.Dequeue(), DateTime.Now, visitantes.FilaDeVisitantes));
 
+
                     // Adicionando o tempo estabelecido para próxima viagem
-                    TimeSpan ultimaViagem = new TimeSpan(viagens.ListaViagens.Peek().HoraViagem.Ticks);
-                    proximaViagem = ultimaViagem.Add(ultimaViagem);
+                    TimeSpan ultimaViagem = new TimeSpan(viagens.ListaViagens.Peek().HoraViagem.Hour, viagens.ListaViagens.Peek().HoraViagem.Minute, viagens.ListaViagens.Peek().HoraViagem.Second);
+                    proximaViagem = tempoRestante.Add(ultimaViagem);
 
                     // Alimentando o label timer
-                    lblTimer.Text = proximaViagem.Minutes.ToString() + ":" + proximaViagem.Seconds.ToString();
+                    lblProximaViagem.Text = proximaViagem.Hours.ToString().PadLeft(2, '0') + ":" + proximaViagem.Minutes.ToString().PadLeft(2, '0') + ":" + proximaViagem.Seconds.ToString().PadLeft(2, '0');
+
 
                     // Mostra mensagem informando o número de passageiros embarcando no veículo da vez
                     MessageBox.Show(viagens.ListaViagens.Peek().Visitantes.Count().ToString() + " passageiros embarcando.");
@@ -94,68 +98,107 @@ namespace projFila4_Transporte
 
             #region eventos dos botões
 
-            private void btnCadastroVeiculo_Click(object sender, EventArgs e)
+            private void btnCadastroVeiculo_Click(object sender, EventArgs e){
+
+            // Criação do novo veículo e adicionando a lista de veículos
+
+            try
+            {
+                veiculo = new Veiculo(txtPlacaVeiculo.Text, txtNomeMotorista.Text, int.Parse(txtLotacao.Text));
+                veiculos.adicionarVeiculo(veiculo);
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                limparTexts();
+                return;
+            }
+
+       
+            
+            
+            // Limpando texts de todos os panels
+            limparTexts();
+            lstVeiculosCadastrados.Items.Clear();
+            // Atualizando a combobox do panel viagens
+            cbbVeiculosCadastrados.Items.Add(veiculo.Placa);
+
+            // Adicionando os veículos da FilaDeVeiculos na listbox veiculos cadastrados
+            foreach (Veiculo v in veiculos.FilaDeVeiculos) {
+                lstVeiculosCadastrados.Items.Add(v.dadosDoVeiculo());
+            }
+                    
+            try
+            {
+                if (visitantes.FilaDeVisitantes.Count() > 0)
                 {
-                    // Criação do novo veículo e adicionando a lista de veículos
-                    veiculo = new Veiculo(txtPlacaVeiculo.Text, txtNomeMotorista.Text, int.Parse(txtLotacao.Text));
-                    veiculos.adicionarVeiculo(veiculo);
-                    
-                    // Limpando texts de todos os panels
-                    limparTexts();
-                    lstVeiculosCadastrados.Items.Clear();
-                    // Atualizando a combobox do panel viagens
-                    cbbVeiculosCadastrados.Items.Add(veiculo.Placa);
 
-                    // Adicionando os veículos da FilaDeVeiculos na listbox veiculos cadastrados
-                    foreach (Veiculo v in veiculos.FilaDeVeiculos) {
-                        lstVeiculosCadastrados.Items.Add(v.dadosDoVeiculo());
-                    }
-                    
-                    try
-                    {
-                        if (visitantes.FilaDeVisitantes.Count() > 0)
-                        {
+                    // segurando uma cópia do veículo pra reinserir na fila de veiculos
+                    Veiculo tempVeiculo = veiculo;
 
-                            // segurando uma cópia do veículo pra reinserir na fila de veiculos
-                            Veiculo tempVeiculo = veiculo;
-
-                            // Prepara os dados, embarca os visitantes no veículo e salva a viagem na lista de viagens
-                            Visitantes tempVisitantes = new Visitantes();                            
-                            for (int i = veiculo.Lotacao; i == 0; i--){
-                                tempVisitantes.FilaDeVisitantes.Enqueue(visitantes.FilaDeVisitantes.Dequeue());
-                            }                            
+                    // Prepara os dados, embarca os visitantes no veículo e salva a viagem na lista de viagens
+                    Visitantes tempVisitantes = new Visitantes();                            
+                    for (int i = 0; i < veiculo.Lotacao; i++){
+                        tempVisitantes.FilaDeVisitantes.Enqueue(visitantes.FilaDeVisitantes.Dequeue());
+                    }                            
                             
-                            // calculando o saldo do motorista
-                            veiculo.Saldo += (tempVisitantes.FilaDeVisitantes.Count() * 5);
+                    // calculando o saldo do motorista
+                    veiculo.Saldo += (tempVisitantes.FilaDeVisitantes.Count() * 5);
 
-                            // adicionando a viagem na lista de viagens
-                            viagens.adicionarViagens(new Viagem(veiculos.FilaDeVeiculos.Dequeue(), DateTime.Now, tempVisitantes.FilaDeVisitantes));
+                    // adicionando a viagem na lista de viagens
+                    viagens.adicionarViagens(new Viagem(veiculos.FilaDeVeiculos.Dequeue(), DateTime.Now, tempVisitantes.FilaDeVisitantes));
 
-                            // Mostra mensagem informando o número de passageiros embarcando no veículo da vez
-                            MessageBox.Show(tempVisitantes.FilaDeVisitantes.Count.ToString() + " passageiros embarcando.");
+                    // Adicionando o tempo estabelecido para próxima viagem
+                    TimeSpan ultimaViagem = new TimeSpan(viagens.ListaViagens.Peek().HoraViagem.Hour, viagens.ListaViagens.Peek().HoraViagem.Minute, viagens.ListaViagens.Peek().HoraViagem.Second);
+                    proximaViagem = tempoRestante.Add(ultimaViagem);
 
-                            // limpando os objetos do form e a lista de visitantes static do form
-                            lstFilaEmbarque.Items.Clear();
-                            limparTexts();
-                            tempVisitantes = new Visitantes();
+                    // Alimentando o label timer
+                    lblProximaViagem.Text = proximaViagem.Hours.ToString().PadLeft(2, '0') + ":" + proximaViagem.Minutes.ToString().PadLeft(2, '0') + ":" + proximaViagem.Seconds.ToString().PadLeft(2, '0');
 
-                            // Devolvendo o veiculo que fez a viagem a fila de veiculos
-                            veiculos.adicionarVeiculo(tempVeiculo);
-                        }
+                    // Mostra mensagem informando o número de passageiros embarcando no veículo da vez
+                    MessageBox.Show(tempVisitantes.FilaDeVisitantes.Count.ToString() + " passageiros embarcando.");
+
+                    // limpando os objetos do form e a lista de visitantes static do form
+                    lstFilaEmbarque.Items.Clear();
+
+                    foreach (Visitante v in visitantes.FilaDeVisitantes) {
+                        lstFilaEmbarque.Items.Add(v.dadosDoVisitante());
                     }
-                    catch
-                    {
 
-                    }
+                    limparTexts();
 
 
+
+                    // Devolvendo o veiculo que fez a viagem a fila de veiculos
+                    veiculos.adicionarVeiculo(tempVeiculo);
                 }
+            }
+            catch
+            {
+
+            }
+
+
+            }
 
             // Evento que controla o evento "click" no botão check-in no panel 
             private void btnCheckin_Click(object sender, EventArgs e)
             {
-                // adicionando o visitante a lista de visitantes corrente
-                visitantes.adicionarVisitante(new Visitante(int.Parse(txtNumInscricao.Text)));
+                try
+                {
+                    // adicionando o visitante a lista de visitantes corrente
+                    visitantes.adicionarVisitante(new Visitante(int.Parse(txtNumInscricao.Text)));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    limparTexts();
+                    return;
+                }
+
+            try
+            {
 
                 // Adicionar os visitantes a fila de embarque
                 limparTexts();
@@ -169,40 +212,42 @@ namespace projFila4_Transporte
                 //    e posteriomente se é(ou) hora do embarque, qual dois ocorrerem primeiro
                 //    e então embarcá-los. Resetando a lista de visitantes aguardando embarque
 
-                try {
-                    // Já tem carro disponível pra fazer as viagens? Se sim, o número de visitantes já lota 1 carro?
-                    if (visitantes.FilaDeVisitantes.Count() == veiculos.FilaDeVeiculos.Peek().Lotacao && veiculos.FilaDeVeiculos.Count() > 0)
-                    {
 
-                        // segurando uma cópia do veículo pra reinserir na fila de veiculos
-                        Veiculo tempVeiculo = veiculo;
-                        // adicionando o saldo ao veículo
-                        veiculo.Saldo += (visitantes.FilaDeVisitantes.Count() * 5);             
-                        viagens.adicionarViagens(new Viagem(veiculos.FilaDeVeiculos.Dequeue(), DateTime.Now, visitantes.FilaDeVisitantes));
-
-
-                        // Disparando o timer de tempo restante
-                        timerTempoRestante.Start();
-
-                        // preenchendo a variavel static proximaViagem com a hora da próxima viagem
-                        TimeSpan tsUltimaViagem = new TimeSpan(viagens.ListaViagens.Peek().HoraViagem.Ticks);
-                        proximaViagem = tsUltimaViagem.Add(new TimeSpan(0, 30, 0));
-                        MessageBox.Show(viagens.ListaViagens.Peek().Visitantes.Count() + " passageiros embarcando.");
-
-                        // limpando os objetos do form e a lista de visitantes static do form
-                        lstFilaEmbarque.Items.Clear();  limparTexts();
-                        visitantes = new Visitantes();
-
-                        // Devolvendo o veiculo que fez a viagem a fila de veiculos
-                        veiculos.adicionarVeiculo(tempVeiculo);
-
-
-                    }
-                }
-                catch
+                // Já tem carro disponível pra fazer as viagens? Se sim, o número de visitantes já lota 1 carro?
+                if (visitantes.FilaDeVisitantes.Count() == veiculos.FilaDeVeiculos.Peek().Lotacao && veiculos.FilaDeVeiculos.Count() > 0)
                 {
 
+                    // segurando uma cópia do veículo pra reinserir na fila de veiculos
+                    Veiculo tempVeiculo = veiculo;
+                    // adicionando o saldo ao veículo
+                    veiculo.Saldo += (visitantes.FilaDeVisitantes.Count() * 5);
+                    viagens.adicionarViagens(new Viagem(veiculos.FilaDeVeiculos.Dequeue(), DateTime.Now, visitantes.FilaDeVisitantes));
+
+                    // Disparando o timer de tempo restante
+                    timerTempoRestante.Start();
+
+                    // Adicionando o tempo estabelecido para próxima viagem
+                    TimeSpan ultimaViagem = new TimeSpan(viagens.ListaViagens.Peek().HoraViagem.Hour, viagens.ListaViagens.Peek().HoraViagem.Minute, viagens.ListaViagens.Peek().HoraViagem.Second);
+                    proximaViagem = tempoRestante.Add(ultimaViagem);
+
+                    // Alimentando o label timer
+                    lblProximaViagem.Text = proximaViagem.Hours.ToString().PadLeft(2,'0') + ":" + proximaViagem.Minutes.ToString().PadLeft(2,'0') + ":" + proximaViagem.Seconds.ToString().PadLeft(2,'0');
+
+                    MessageBox.Show(viagens.ListaViagens.Peek().Visitantes.Count() + " passageiros embarcando.");
+
+                    // limpando os objetos do form e a lista de visitantes static do form
+                    lstFilaEmbarque.Items.Clear(); limparTexts();
+                    visitantes = new Visitantes();
+
+                    // Devolvendo o veiculo que fez a viagem a fila de veiculos
+                    veiculos.adicionarVeiculo(tempVeiculo);
+
                 }
+            }
+            catch
+            {
+
+            }
 
             }
 
@@ -236,6 +281,8 @@ namespace projFila4_Transporte
 
             private void btnTempoRestante_Click(object sender, EventArgs e)
             {
+
+                
                 string temporizador = lblHoraAtual.Text;
                 string[] arrayTemporizador = temporizador.Split(':');
                 tempoRestante = new TimeSpan(int.Parse(arrayTemporizador[0]), int.Parse(arrayTemporizador[1]), int.Parse(arrayTemporizador[2]));
@@ -278,6 +325,7 @@ namespace projFila4_Transporte
 
 
         #endregion
+
 
     }
 }
