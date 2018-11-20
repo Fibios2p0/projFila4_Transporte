@@ -13,6 +13,7 @@ namespace projFila4_Transporte
         #region atributos
         private string placa, nomeMotorista;
         private int lotacao;
+        private double saldo=0.0;
         #endregion
         
         #region propriedades
@@ -25,6 +26,12 @@ namespace projFila4_Transporte
         {
             get { return lotacao; }
             set { lotacao = value;}
+        }
+
+        public double Saldo
+        {
+            get { return saldo; }
+            set { saldo = value; }
         }
 
         
@@ -40,6 +47,7 @@ namespace projFila4_Transporte
         #endregion
 
         #region metodos
+
         public bool validarPlaca(string value)
         {
             Regex regex = new Regex(@"^[a-zA-Z]{3}\-\d{4}$");

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbControl = new System.Windows.Forms.TabControl();
             this.tbCadastroVeiculos = new System.Windows.Forms.TabPage();
             this.lblVeiculosCadastrados = new System.Windows.Forms.Label();
@@ -40,16 +41,22 @@
             this.txtPlacaVeiculo = new System.Windows.Forms.TextBox();
             this.lblPlacaVeiculo = new System.Windows.Forms.Label();
             this.tbCheckin = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnCheckin = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblTimer = new System.Windows.Forms.Label();
+            this.txtNumInscricao = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblHoraAtual = new System.Windows.Forms.Label();
             this.lblFilaEmbarque = new System.Windows.Forms.Label();
             this.lstFilaEmbarque = new System.Windows.Forms.ListBox();
-            this.btnCheckin = new System.Windows.Forms.Button();
-            this.txtNumInscricao = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tbViagens = new System.Windows.Forms.TabPage();
             this.lblViagensPorVeiculo = new System.Windows.Forms.Label();
             this.lstViagensPorVeiculo = new System.Windows.Forms.ListBox();
             this.cbbVeiculosCadastrados = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.timerHoraAtual = new System.Windows.Forms.Timer(this.components);
+            this.timerTempoRestante = new System.Windows.Forms.Timer(this.components);
             this.tbControl.SuspendLayout();
             this.tbCadastroVeiculos.SuspendLayout();
             this.tbCheckin.SuspendLayout();
@@ -163,11 +170,15 @@
             // 
             // tbCheckin
             // 
+            this.tbCheckin.Controls.Add(this.label2);
+            this.tbCheckin.Controls.Add(this.btnCheckin);
+            this.tbCheckin.Controls.Add(this.label3);
+            this.tbCheckin.Controls.Add(this.lblTimer);
+            this.tbCheckin.Controls.Add(this.txtNumInscricao);
+            this.tbCheckin.Controls.Add(this.label4);
+            this.tbCheckin.Controls.Add(this.lblHoraAtual);
             this.tbCheckin.Controls.Add(this.lblFilaEmbarque);
             this.tbCheckin.Controls.Add(this.lstFilaEmbarque);
-            this.tbCheckin.Controls.Add(this.btnCheckin);
-            this.tbCheckin.Controls.Add(this.txtNumInscricao);
-            this.tbCheckin.Controls.Add(this.label3);
             this.tbCheckin.Location = new System.Drawing.Point(4, 22);
             this.tbCheckin.Name = "tbCheckin";
             this.tbCheckin.Padding = new System.Windows.Forms.Padding(3);
@@ -176,10 +187,72 @@
             this.tbCheckin.Text = "Check-In Visitantes";
             this.tbCheckin.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 501);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Próxima partida:";
+            // 
+            // btnCheckin
+            // 
+            this.btnCheckin.Location = new System.Drawing.Point(23, 102);
+            this.btnCheckin.Name = "btnCheckin";
+            this.btnCheckin.Size = new System.Drawing.Size(302, 23);
+            this.btnCheckin.TabIndex = 13;
+            this.btnCheckin.Text = "Fazer Check-In";
+            this.btnCheckin.UseVisualStyleBackColor = true;
+            this.btnCheckin.Click += new System.EventHandler(this.btnCheckin_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 79);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(119, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Nº Inscrição no evento:";
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimer.Location = new System.Drawing.Point(139, 493);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(0, 24);
+            this.lblTimer.TabIndex = 23;
+            // 
+            // txtNumInscricao
+            // 
+            this.txtNumInscricao.Location = new System.Drawing.Point(145, 76);
+            this.txtNumInscricao.Name = "txtNumInscricao";
+            this.txtNumInscricao.Size = new System.Drawing.Size(180, 20);
+            this.txtNumInscricao.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "Hora atual:";
+            // 
+            // lblHoraAtual
+            // 
+            this.lblHoraAtual.AutoSize = true;
+            this.lblHoraAtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHoraAtual.Location = new System.Drawing.Point(17, 35);
+            this.lblHoraAtual.Name = "lblHoraAtual";
+            this.lblHoraAtual.Size = new System.Drawing.Size(0, 24);
+            this.lblHoraAtual.TabIndex = 21;
+            // 
             // lblFilaEmbarque
             // 
             this.lblFilaEmbarque.AutoSize = true;
-            this.lblFilaEmbarque.Location = new System.Drawing.Point(20, 100);
+            this.lblFilaEmbarque.Location = new System.Drawing.Point(20, 139);
             this.lblFilaEmbarque.Name = "lblFilaEmbarque";
             this.lblFilaEmbarque.Size = new System.Drawing.Size(92, 13);
             this.lblFilaEmbarque.TabIndex = 15;
@@ -188,36 +261,10 @@
             // lstFilaEmbarque
             // 
             this.lstFilaEmbarque.FormattingEnabled = true;
-            this.lstFilaEmbarque.Location = new System.Drawing.Point(23, 116);
+            this.lstFilaEmbarque.Location = new System.Drawing.Point(23, 155);
             this.lstFilaEmbarque.Name = "lstFilaEmbarque";
-            this.lstFilaEmbarque.Size = new System.Drawing.Size(302, 420);
+            this.lstFilaEmbarque.Size = new System.Drawing.Size(302, 290);
             this.lstFilaEmbarque.TabIndex = 14;
-            // 
-            // btnCheckin
-            // 
-            this.btnCheckin.Location = new System.Drawing.Point(23, 55);
-            this.btnCheckin.Name = "btnCheckin";
-            this.btnCheckin.Size = new System.Drawing.Size(302, 23);
-            this.btnCheckin.TabIndex = 13;
-            this.btnCheckin.Text = "Fazer Check-In";
-            this.btnCheckin.UseVisualStyleBackColor = true;
-            this.btnCheckin.Click += new System.EventHandler(this.btnCheckin_Click);
-            // 
-            // txtNumInscricao
-            // 
-            this.txtNumInscricao.Location = new System.Drawing.Point(121, 18);
-            this.txtNumInscricao.Name = "txtNumInscricao";
-            this.txtNumInscricao.Size = new System.Drawing.Size(204, 20);
-            this.txtNumInscricao.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Nº Inscrição:";
             // 
             // tbViagens
             // 
@@ -267,6 +314,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Veículo/Placa:";
             // 
+            // timerHoraAtual
+            // 
+            this.timerHoraAtual.Interval = 1000;
+            this.timerHoraAtual.Tick += new System.EventHandler(this.timerHoraAtual_Tick);
+            // 
+            // timerTempoRestante
+            // 
+            this.timerTempoRestante.Interval = 30000;
+            this.timerTempoRestante.Tick += new System.EventHandler(this.timerTempoRestante_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,6 +332,7 @@
             this.Controls.Add(this.tbControl);
             this.Name = "Form1";
             this.Text = "Controle de Viagens - Centro de Exposições X";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tbControl.ResumeLayout(false);
             this.tbCadastroVeiculos.ResumeLayout(false);
             this.tbCadastroVeiculos.PerformLayout();
@@ -310,6 +368,12 @@
         private System.Windows.Forms.ListBox lstViagensPorVeiculo;
         private System.Windows.Forms.ComboBox cbbVeiculosCadastrados;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblHoraAtual;
+        private System.Windows.Forms.Timer timerHoraAtual;
+        private System.Windows.Forms.Timer timerTempoRestante;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -28,28 +28,41 @@ namespace projFila4_Transporte
 
         }
 
-        public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> passageiros) {
+        public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> visitantes) {
             this.Veiculo = veiculo;
             this.HoraViagem = horaViagem;
-            this.Visitantes = passageiros;
+            this.Visitantes = visitantes;
         }
 
         #endregion
 
         #region metodos
-        public string Dados()
+        public string dadosDaViagem()
         {
-            StringBuilder strBuild = new StringBuilder();
-
-            foreach (Visitante v in visitantes) {
-
-                strBuild.Append(v);
-                strBuild.Append(", ");
-                
-            }
-
-            return $"Veículo: {this.veiculo.Placa} Hora: {this.HoraViagem.Hour} Visitantes: {strBuild.ToString()}";
+            return $"Veículo: {this.veiculo.Placa} - Hora: {this.HoraViagem.ToLongTimeString()} - Passageiros: {listaDePassageiros()}";
         }
+
+        private string listaDePassageiros() {
+
+            StringBuilder strB = new StringBuilder();
+            int qtdVisitantes = visitantes.Count();
+            foreach (Visitante vis in this.visitantes) {
+
+                if (qtdVisitantes > 1)
+                {
+                    strB.Append(vis.dadosDoVisitante());
+                    strB.Append(", ");
+                    qtdVisitantes--;
+                }
+                else {
+                    strB.Append(vis.dadosDoVisitante());
+                }
+                
+
+            }
+            return strB.ToString();    
+        }
+
         #endregion
 
 
