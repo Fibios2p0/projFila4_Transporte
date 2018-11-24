@@ -41,8 +41,10 @@
             this.txtPlacaVeiculo = new System.Windows.Forms.TextBox();
             this.lblPlacaVeiculo = new System.Windows.Forms.Label();
             this.tbCheckin = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnCheckin = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblProximaViagem = new System.Windows.Forms.Label();
             this.txtNumInscricao = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblHoraAtual = new System.Windows.Forms.Label();
@@ -55,8 +57,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.timerHoraAtual = new System.Windows.Forms.Timer(this.components);
             this.timerTempoRestante = new System.Windows.Forms.Timer(this.components);
-            this.lblProximaViagem = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.tbControl.SuspendLayout();
             this.tbCadastroVeiculos.SuspendLayout();
             this.tbCheckin.SuspendLayout();
@@ -187,6 +187,15 @@
             this.tbCheckin.Text = "Check-In Visitantes";
             this.tbCheckin.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(30, 501);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Próxima partida:";
+            // 
             // btnCheckin
             // 
             this.btnCheckin.Location = new System.Drawing.Point(23, 102);
@@ -205,6 +214,15 @@
             this.label3.Size = new System.Drawing.Size(119, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Nº Inscrição no evento:";
+            // 
+            // lblProximaViagem
+            // 
+            this.lblProximaViagem.AutoSize = true;
+            this.lblProximaViagem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProximaViagem.Location = new System.Drawing.Point(139, 493);
+            this.lblProximaViagem.Name = "lblProximaViagem";
+            this.lblProximaViagem.Size = new System.Drawing.Size(0, 24);
+            this.lblProximaViagem.TabIndex = 23;
             // 
             // txtNumInscricao
             // 
@@ -304,25 +322,6 @@
             // timerTempoRestante
             // 
             this.timerTempoRestante.Interval = 30000;
-            this.timerTempoRestante.Tick += new System.EventHandler(this.timerTempoRestante_Tick);
-            // 
-            // lblProximaViagem
-            // 
-            this.lblProximaViagem.AutoSize = true;
-            this.lblProximaViagem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProximaViagem.Location = new System.Drawing.Point(139, 493);
-            this.lblProximaViagem.Name = "lblProximaViagem";
-            this.lblProximaViagem.Size = new System.Drawing.Size(0, 24);
-            this.lblProximaViagem.TabIndex = 23;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 501);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "Próxima partida:";
             // 
             // Form1
             // 

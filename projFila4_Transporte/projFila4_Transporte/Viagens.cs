@@ -9,7 +9,7 @@ namespace projFila4_Transporte
     class Viagens
     {
         #region atributos
-        Queue<Viagem> listaViagens = new Queue<Viagem>();
+        Queue<Viagem> listaViagens;
         #endregion
 
         #region propriedades
@@ -32,7 +32,17 @@ namespace projFila4_Transporte
             }            
         }
 
-        
+        public Viagem pesquisar(Viagem viagem)
+        {
+            foreach (Viagem vig in listaViagens)
+            {
+                if (viagem.Equals(vig))
+                    return vig;
+            }
+            return null;
+        }
+
+
         #endregion
 
 

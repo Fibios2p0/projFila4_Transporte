@@ -13,7 +13,6 @@ namespace projFila4_Transporte
         #region atributos
         private string placa, nomeMotorista;
         private int lotacao;
-        private double saldo=0.0;
         #endregion
         
         #region propriedades
@@ -28,13 +27,6 @@ namespace projFila4_Transporte
             set { lotacao = value;}
         }
 
-        public double Saldo
-        {
-            get { return saldo; }
-            set { saldo = value; }
-        }
-
-        
         #endregion
 
         #region construtores
@@ -44,6 +36,7 @@ namespace projFila4_Transporte
             this.nomeMotorista = nomeMotorista;
             Lotacao = lotacao;
         }
+        public Veiculo(string placa) : this(placa, "", 0) { }
         #endregion
 
         #region metodos
@@ -71,6 +64,7 @@ namespace projFila4_Transporte
             Veiculo v = (Veiculo)obj;
             return this.placa.Equals(v.placa);
         }
+
         #endregion
     }
 }

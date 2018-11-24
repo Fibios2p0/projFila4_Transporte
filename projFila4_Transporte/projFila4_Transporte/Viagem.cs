@@ -11,7 +11,7 @@ namespace projFila4_Transporte
         #region atributos
         Veiculo veiculo;
         DateTime horaViagem;
-        Queue<Visitante> visitantes = new Queue<Visitante>();
+        Queue<Visitante> visitantes;
         #endregion
 
         #region propriedades
@@ -29,10 +29,13 @@ namespace projFila4_Transporte
         }
 
         public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> visitantes) {
-            this.Veiculo = veiculo;
-            this.HoraViagem = horaViagem;
-            this.Visitantes = visitantes;
+            this.visitantes = new Queue<Visitante>();
+            foreach (Visitante visitante in visitantes)
+                visitantes.Enqueue(visitantes.Dequeue());
+            this.veiculo = veiculo;
+            this.horaViagem = horaViagem;
         }
+        public Viagem(Veiculo vei):this(vei, DateTime.Now, null) { }
 
         #endregion
 
@@ -47,7 +50,6 @@ namespace projFila4_Transporte
             StringBuilder strB = new StringBuilder();
             int qtdVisitantes = visitantes.Count();
             foreach (Visitante vis in this.visitantes) {
-
                 if (qtdVisitantes > 1)
                 {
                     strB.Append(vis.dadosDoVisitante());
@@ -57,11 +59,15 @@ namespace projFila4_Transporte
                 else {
                     strB.Append(vis.dadosDoVisitante());
                 }
-                
-
             }
+            strB.Append("\n" + "Valor da viagem" + valorViagem());
+
             return strB.ToString();    
         }
+        public double valorViagem()
+        {
+            return visitantes.Count() * 5;
+        }       
 
         #endregion
 

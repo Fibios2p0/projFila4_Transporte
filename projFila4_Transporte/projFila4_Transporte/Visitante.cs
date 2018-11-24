@@ -28,9 +28,12 @@ namespace projFila4_Transporte
         {
             String str = this.numeroInscricao.ToString();
             return str;
-
         }
-
+        public override bool Equals(object obj)
+        {
+           Visitante v = (Visitante)obj;
+           return this.numeroInscricao.Equals(v.numeroInscricao);
+        }
         #endregion
     }
 }

@@ -22,23 +22,30 @@ namespace projFila4_Transporte
 
         #region metodos
 
-        public bool adicionarVeiculo(Veiculo veiculo){
-            try{
+        public bool adicionarVeiculo(Veiculo veiculo) {
+            if (pesquisar(veiculo) == null)
+            {
                 filaDeVeiculos.Enqueue(veiculo);
                 return true;
             }
-            catch (Exception e){
+            else
                 return false;
-            }
         }
-
         public bool temVeiculo() {
             if (filaDeVeiculos.Count() > 0) {
                 return true;
             }
             return false;
         }
-
+        public Veiculo pesquisar(Veiculo veiculo)
+        {
+            foreach(Veiculo ve in filaDeVeiculos)
+            {
+                if (veiculo.Equals(ve))
+                    return ve;
+            }
+            return null;
+        }
         #endregion
     }
 }

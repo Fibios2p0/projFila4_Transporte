@@ -23,14 +23,23 @@ namespace projFila4_Transporte
 
         public bool adicionarVisitante(Visitante visitante)
         {
-            try
+ 
+            if (pesquisar(visitante) == null)
             {
-                filaDeVisitantes.Enqueue(visitante);
+                FilaDeVisitantes.Enqueue(visitante);
                 return true;
             }
-            catch (Exception e){
+            else
                 return false;
+        }
+        public Visitante pesquisar(Visitante visitante)
+        {
+            foreach (Visitante vis in filaDeVisitantes)
+            {
+                if (vis.Equals(visitante))
+                    return vis;
             }
+            return null;
         }
 
         #endregion
