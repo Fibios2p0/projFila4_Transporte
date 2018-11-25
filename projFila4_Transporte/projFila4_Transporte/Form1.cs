@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace projFila4_Transporte
 {
@@ -41,15 +42,12 @@ namespace projFila4_Transporte
             timerHoraAtual.Start();
             // timerTempoRestante.Start();
         }
-
-
         #endregion
 
      
         #region timer
-
         private void timerHoraAtual_Tick(object sender, EventArgs e)
-        {
+        { 
             lblHoraAtual.Text = DateTime.Now.ToLongTimeString();
         }
         #endregion
@@ -58,24 +56,35 @@ namespace projFila4_Transporte
         {
             try
             {
-                veiculo = new Veiculo(txtPlacaVeiculo.Text, txtNomeMotorista.Text, int.Parse(txtLotacao.Text));
-
-                lstVeiculosCadastrados.Items.Clear();
-                cbbVeiculosCadastrados.Items.Clear();
-
-                if (!veiculos.adicionarVeiculo(veiculo))
-                    MessageBox.Show("Placa já cadastrada!");
-                else
-                    limpaText();
-
-                //atualização do lstBox
-                foreach (Veiculo veiculo in veiculos.FilaDeVeiculos)
+                //formatando a placa
+                string placa = txtPlacaVeiculo.Text;
+                if (placa.Count() == 7)
                 {
-                    lstVeiculosCadastrados.Items.Add(veiculo.dadosDoVeiculo());
-                    cbbVeiculosCadastrados.Items.Add(veiculo.Placa);
+                    placa = placa.Substring(0, 3).ToUpper() + "-" + placa.Substring(3, 4);
                 }
-                //Posso viajar?
-                viajar(sender);
+                //inicializando um veículo
+                if (validarPlaca(placa) && int.Parse(txtLotacao.Text) > 0)
+                {
+                    veiculo = new Veiculo(placa, txtNomeMotorista.Text, int.Parse(txtLotacao.Text));
+
+                    lstVeiculosCadastrados.Items.Clear();
+                    cbbVeiculosCadastrados.Items.Clear();
+
+                    if (!veiculos.adicionarVeiculo(veiculo))
+                        MessageBox.Show("Placa já cadastrada!");
+                    else
+                        limpaText();
+
+                    //atualização do lstBox
+                    foreach (Veiculo veiculo in veiculos.FilaDeVeiculos)
+                    {
+                        lstVeiculosCadastrados.Items.Add(veiculo.dadosDoVeiculo());
+                        cbbVeiculosCadastrados.Items.Add(veiculo.Placa);
+                    }
+                    //Posso viajar?
+                    viajar(sender);
+                }
+                else MessageBox.Show("Placa inválida");
             }
             catch(Exception ex)
             {
@@ -86,14 +95,18 @@ namespace projFila4_Transporte
         {
             try
             {
+               
                 lstFilaEmbarque.Items.Clear();
                 Visitante visitante = new Visitante(int.Parse(txtNumInscricao.Text));
                
                 if (!visitantes.adicionarVisitante(visitante))
                     MessageBox.Show("Visitante já na fila");
                 else
+                {
+                    //iniciando o timer.
+                    timerTempoRestante.Start();
                     limpaText();
-
+                }
                 //atualização do lstBox
                 foreach (Visitante vis in visitantes.FilaDeVisitantes)
                 {
@@ -123,28 +136,34 @@ namespace projFila4_Transporte
                         Viagem viagem = new Viagem(veiculo, DateTime.Now, visitantes.FilaDeVisitantes);
                         viagens.adicionarViagens(viagem);
                         MessageBox.Show("Viagem iniciada via lotação");
-                                           }
+                    }
                     else break;
                 }
             }
-            catch(Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
                 try
                 {
-                    TimeSpan timer = (TimeSpan)sender;
-                    if (visitantes.FilaDeVisitantes.Count() != 0 && veiculos.FilaDeVeiculos.Count() != 0)
+                    if (visitantes.FilaDeVisitantes.Count() > 0 && veiculos.FilaDeVeiculos.Count() > 0)
                     {
-                        
+
                         veiculo = veiculos.FilaDeVeiculos.Dequeue();
+                        veiculos.FilaDeVeiculos.Enqueue(veiculo);
+
                         Viagem viagem = new Viagem(veiculo, DateTime.Now, visitantes.FilaDeVisitantes);
                         viagens.adicionarViagens(viagem);
-                        MessageBox.Show("Viagem iniciada pelo horário");
+                        MessageBox.Show("Viagem iniciada pelo tempo");
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                     MessageBox.Show("Ninguém viajou");
+                }
+                //TIMER negando a afirmação, caso haja visitantes o timer continua
+                if (!(visitantes.FilaDeVisitantes.Count() > 0))
+                {
+                    timerTempoRestante.Stop();
                 }
             }
             //atualizando a lista de embarque
@@ -152,12 +171,12 @@ namespace projFila4_Transporte
             foreach (Visitante vis in visitantes.FilaDeVisitantes)
                 lstFilaEmbarque.Items.Add(vis.dadosDoVisitante());
         }
-
         private void cbbVeiculosCadastrados_SelectedValueChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Evento combo");
+            //MessageBox.Show("Evento combo");
+            
             limpaText();
-            String placa = cbbVeiculosCadastrados.SelectedText;
+            string placa = cbbVeiculosCadastrados.SelectedItem.ToString();
             double valorTotal =0;
             //metodo que busca todas as viagens e adiciona somente a placa correspondente
             foreach (Viagem viagem in viagens.ListaViagens)
@@ -168,12 +187,27 @@ namespace projFila4_Transporte
                     valorTotal += viagem.valorViagem();
                 }
             }
-            lstViagensPorVeiculo.Items.Add("Total do veículo: R$" + valorTotal.ToString("d2")+ "");
+            lstViagensPorVeiculo.Items.Add("");
+            lstViagensPorVeiculo.Items.Add("Total do veículo: R$ " +valorTotal.ToString("C"));
         }
         void limpaText()
         {
             txtLotacao.Text = txtNomeMotorista.Text = txtNumInscricao.Text = txtPlacaVeiculo.Text = "";
             lstViagensPorVeiculo.Items.Clear();
+        }
+        public bool validarPlaca(string value)
+        {
+            Regex regex = new Regex(@"^[a-zA-Z]{3}\-\d{4}$");
+
+            if (regex.IsMatch(value))
+                return true; //se a placa for válida, retorna TRUE
+            return false; //se a placa for inválida, retorna FALSE             
+        }
+
+        private void timerTempoRestante_Tick(object sender, EventArgs e)
+        {
+            if(veiculos.FilaDeVeiculos.Count()>0 && visitantes.FilaDeVisitantes.Count()>0)
+                viajar(sender);
         }
     }
 }

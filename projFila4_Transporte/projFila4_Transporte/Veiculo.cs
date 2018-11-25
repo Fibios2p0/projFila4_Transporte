@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+
 
 
 namespace projFila4_Transporte
@@ -41,17 +41,10 @@ namespace projFila4_Transporte
 
         #region metodos
 
-        public bool validarPlaca(string value)
-        {
-            Regex regex = new Regex(@"^[a-zA-Z]{3}\-\d{4}$");
-
-            if (regex.IsMatch(value))
-                return true; //se a placa for válida, retorna TRUE
-            return false; //se a placa for inválida, retorna FALSE             
-        }
+       
 
         public String dadosDoVeiculo() {
-            String str = this.Placa + "-" + this.nomeMotorista + "-" + this.Lotacao;
+            String str = this.Placa + "  -  " + this.nomeMotorista + "  -  " + this.Lotacao;
             return str;
             
         }

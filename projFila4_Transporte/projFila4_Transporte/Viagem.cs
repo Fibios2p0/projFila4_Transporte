@@ -30,10 +30,21 @@ namespace projFila4_Transporte
         public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> filaVis) {
             this.visitantes = new Queue<Visitante>();
             //consumindo a fila
-            for (int x=1; x <= veiculo.Lotacao&&veiculo.Lotacao!=0; x++)
+            if (veiculo.Lotacao <= filaVis.Count())
             {
-                this.visitantes.Enqueue(filaVis.Dequeue());
+                for (int x = 1; x <= veiculo.Lotacao && veiculo.Lotacao != 0; x++)
+                {
+                    this.visitantes.Enqueue(filaVis.Dequeue());
+                }
             }
+            else
+            {
+                for(int x=0; x < filaVis.Count();x++)
+                {
+                    this.visitantes.Enqueue(filaVis.Dequeue());
+                }
+            }
+
             this.veiculo = veiculo;
             this.horaViagem = horaViagem;
         }

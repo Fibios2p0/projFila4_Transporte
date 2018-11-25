@@ -321,7 +321,8 @@
             // 
             // timerTempoRestante
             // 
-            this.timerTempoRestante.Interval = 30000;
+            this.timerTempoRestante.Interval = 15000;
+            this.timerTempoRestante.Tick += new System.EventHandler(this.timerTempoRestante_Tick);
             // 
             // Form1
             // 
