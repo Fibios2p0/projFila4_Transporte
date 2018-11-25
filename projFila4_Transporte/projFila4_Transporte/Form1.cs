@@ -25,6 +25,7 @@ namespace projFila4_Transporte
 
         public Form1()
         {
+            viagens = new Viagens();
             veiculos = new Veiculos();
             visitantes = new Visitantes();
             tempoRestante = new TimeSpan(0, 30, 0);
@@ -81,11 +82,6 @@ namespace projFila4_Transporte
                 MessageBox.Show("Erro: "+ex.Message);
             }
         }
-        void limpaText()
-        {
-            txtLotacao.Text = txtNomeMotorista.Text = txtNumInscricao.Text = txtPlacaVeiculo.Text = "";
-        }
-
         private void btnCheckin_Click(object sender, EventArgs e)
         {
             try
@@ -159,13 +155,25 @@ namespace projFila4_Transporte
 
         private void cbbVeiculosCadastrados_SelectedValueChanged(object sender, EventArgs e)
         {
-            lstViagensPorVeiculo.Items.Clear();
+            MessageBox.Show("Evento combo");
+            limpaText();
             String placa = cbbVeiculosCadastrados.SelectedText;
+            double valorTotal =0;
+            //metodo que busca todas as viagens e adiciona somente a placa correspondente
             foreach (Viagem viagem in viagens.ListaViagens)
             {
                 if (viagem.Veiculo.Placa == placa)
+                {
                     lstViagensPorVeiculo.Items.Add(viagem.dadosDaViagem());
+                    valorTotal += viagem.valorViagem();
+                }
             }
+            lstViagensPorVeiculo.Items.Add("Total do veículo: R$" + valorTotal.ToString("d2")+ "");
+        }
+        void limpaText()
+        {
+            txtLotacao.Text = txtNomeMotorista.Text = txtNumInscricao.Text = txtPlacaVeiculo.Text = "";
+            lstViagensPorVeiculo.Items.Clear();
         }
     }
 }

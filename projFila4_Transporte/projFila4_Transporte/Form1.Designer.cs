@@ -68,7 +68,7 @@
             this.tbControl.Controls.Add(this.tbCadastroVeiculos);
             this.tbControl.Controls.Add(this.tbCheckin);
             this.tbControl.Controls.Add(this.tbViagens);
-            this.tbControl.Location = new System.Drawing.Point(12, 12);
+            this.tbControl.Location = new System.Drawing.Point(13, 12);
             this.tbControl.Name = "tbControl";
             this.tbControl.SelectedIndex = 0;
             this.tbControl.Size = new System.Drawing.Size(352, 596);

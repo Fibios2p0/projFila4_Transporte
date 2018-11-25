@@ -25,13 +25,15 @@ namespace projFila4_Transporte
         #region construtores
 
         public Viagem() {
-
         }
 
-        public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> visitantes) {
+        public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> filaVis) {
             this.visitantes = new Queue<Visitante>();
-            foreach (Visitante visitante in visitantes)
-                visitantes.Enqueue(visitantes.Dequeue());
+            //consumindo a fila
+            for (int x=1; x <= veiculo.Lotacao&&veiculo.Lotacao!=0; x++)
+            {
+                this.visitantes.Enqueue(filaVis.Dequeue());
+            }
             this.veiculo = veiculo;
             this.horaViagem = horaViagem;
         }
@@ -60,7 +62,7 @@ namespace projFila4_Transporte
                     strB.Append(vis.dadosDoVisitante());
                 }
             }
-            strB.Append("\n" + "Valor da viagem" + valorViagem());
+           
 
             return strB.ToString();    
         }

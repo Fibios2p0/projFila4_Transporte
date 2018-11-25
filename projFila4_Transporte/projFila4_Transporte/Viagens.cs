@@ -18,16 +18,20 @@ namespace projFila4_Transporte
 
         #region construtores
         #endregion
-
+        public Viagens()
+        {
+            listaViagens = new Queue<Viagem>();
+        }
         #region metodos
 
         public bool adicionarViagens(Viagem viagem)
         {
             try {
-                ListaViagens.Enqueue(viagem);
+                this.listaViagens.Enqueue(viagem);
                 return true;
             }
-            catch (Exception e) {
+            catch
+            {
                 return false;
             }            
         }
