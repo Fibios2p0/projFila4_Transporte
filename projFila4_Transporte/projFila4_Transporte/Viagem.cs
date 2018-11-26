@@ -15,21 +15,22 @@ namespace projFila4_Transporte
         #endregion
 
         #region propriedades
-
         public DateTime HoraViagem { get { return this.horaViagem; } set  {horaViagem = value;} }
         public Veiculo Veiculo { get { return this.veiculo; } set { veiculo = value; } }
         public Queue<Visitante> Visitantes { get { return this.visitantes; } set { this.visitantes = value; } }
-
         #endregion
 
         #region construtores
 
         public Viagem() {
         }
-
         public Viagem(Veiculo veiculo, DateTime horaViagem, Queue<Visitante> filaVis) {
+            //Inicializando atributos
             this.visitantes = new Queue<Visitante>();
-            //consumindo a fila
+            this.veiculo = veiculo;
+            this.horaViagem = horaViagem;
+
+            //consumindo a fila e atribuindo a fila da Viagem, segundo a lotação do veículo
             if (veiculo.Lotacao <= filaVis.Count())
             {
                 for (int x = 1; x <= veiculo.Lotacao && veiculo.Lotacao != 0; x++)
@@ -44,9 +45,6 @@ namespace projFila4_Transporte
                     this.visitantes.Enqueue(filaVis.Dequeue());
                 }
             }
-
-            this.veiculo = veiculo;
-            this.horaViagem = horaViagem;
         }
         public Viagem(Veiculo vei):this(vei, DateTime.Now, null) { }
 
@@ -73,20 +71,16 @@ namespace projFila4_Transporte
                     strB.Append(vis.dadosDoVisitante());
                 }
             }
-           
-
             return strB.ToString();    
         }
         public double valorViagem()
         {
             return visitantes.Count() * 5;
         }       
-
+        
         #endregion
 
-
         #region sobreescritas
-
         public override bool Equals(object obj)
         {
             Viagem v = (Viagem)obj;

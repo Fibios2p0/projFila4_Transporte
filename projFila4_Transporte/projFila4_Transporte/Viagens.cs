@@ -17,11 +17,12 @@ namespace projFila4_Transporte
         #endregion
 
         #region construtores
-        #endregion
         public Viagens()
         {
             listaViagens = new Queue<Viagem>();
         }
+        #endregion
+
         #region metodos
 
         public bool adicionarViagens(Viagem viagem)
@@ -48,7 +49,5 @@ namespace projFila4_Transporte
 
 
         #endregion
-
-
     }
 }

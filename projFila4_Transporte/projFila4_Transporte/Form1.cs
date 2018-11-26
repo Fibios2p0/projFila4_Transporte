@@ -62,6 +62,7 @@ namespace projFila4_Transporte
                 {
                     placa = placa.Substring(0, 3).ToUpper() + "-" + placa.Substring(3, 4);
                 }
+                else placa = placa.Substring(0, 3).ToUpper() + placa.Substring(3, 4);
                 //inicializando um veículo
                 if (validarPlaca(placa) && int.Parse(txtLotacao.Text) > 0)
                 {
@@ -81,10 +82,10 @@ namespace projFila4_Transporte
                         lstVeiculosCadastrados.Items.Add(veiculo.dadosDoVeiculo());
                         cbbVeiculosCadastrados.Items.Add(veiculo.Placa);
                     }
-                    //Posso viajar?
+                    //Posso viajar? eviando o sender (do botão) para o método
                     viajar(sender);
                 }
-                else MessageBox.Show("Placa inválida");
+                else MessageBox.Show("Favor verificar placa e lotação");
             }
             catch(Exception ex)
             {
@@ -95,8 +96,9 @@ namespace projFila4_Transporte
         {
             try
             {
-               
+                //limpando list
                 lstFilaEmbarque.Items.Clear();
+                //inicializando visitante
                 Visitante visitante = new Visitante(int.Parse(txtNumInscricao.Text));
                
                 if (!visitantes.adicionarVisitante(visitante))
@@ -112,7 +114,7 @@ namespace projFila4_Transporte
                 {
                     lstFilaEmbarque.Items.Add(vis.dadosDoVisitante());
                 }
-                //chamando método viajar e enviando o sender como parametro do método
+                //Posso viajar? eviando o sender (do botão) para o método
                 viajar(sender);
             }
             catch (Exception ex)
@@ -125,6 +127,7 @@ namespace projFila4_Transporte
         {
             try
             {
+                //testando se o metodo foi chamado por um botão caso contrario foi o timer
                 Button b = ((Button)sender);
                 while (visitantes.FilaDeVisitantes.Count() != 0 && veiculos.FilaDeVeiculos.Count() != 0)
                 {

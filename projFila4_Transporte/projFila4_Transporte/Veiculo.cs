@@ -19,7 +19,7 @@ namespace projFila4_Transporte
         public string Placa
         {
             get { return placa; }
-            set { /*if (placa.Length == 7 && validarPlaca(value))*/ placa = value; }
+            set { placa = value; }
         }
         public int Lotacao
         {
@@ -41,14 +41,11 @@ namespace projFila4_Transporte
 
         #region metodos
 
-       
-
         public String dadosDoVeiculo() {
             String str = this.Placa + "  -  " + this.nomeMotorista + "  -  " + this.Lotacao;
             return str;
             
         }
-
         #endregion
 
         #region sobreescritas
