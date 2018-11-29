@@ -16,14 +16,10 @@ namespace projFila4_Transporte
         public Queue<Visitante> FilaDeVisitantes { get { return filaDeVisitantes; } }
         #endregion
 
-        #region construtores
-        #endregion
-
         #region metodos
 
         public bool adicionarVisitante(Visitante visitante)
         {
- 
             if (pesquisar(visitante) == null)
             {
                 FilaDeVisitantes.Enqueue(visitante);

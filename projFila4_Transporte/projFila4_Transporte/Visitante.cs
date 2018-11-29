@@ -29,6 +29,9 @@ namespace projFila4_Transporte
             String str = this.numeroInscricao.ToString();
             return str;
         }
+        #endregion
+
+        #region sobreescritas
         public override bool Equals(object obj)
         {
            Visitante v = (Visitante)obj;

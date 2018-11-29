@@ -31,12 +31,6 @@ namespace projFila4_Transporte
             else
                 return false;
         }
-        public bool temVeiculo() {
-            if (filaDeVeiculos.Count() > 0) {
-                return true;
-            }
-            return false;
-        }
         public Veiculo pesquisar(Veiculo veiculo)
         {
             foreach(Veiculo ve in filaDeVeiculos)
