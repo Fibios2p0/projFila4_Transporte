@@ -14,12 +14,10 @@ namespace projFila4_Transporte
     public partial class Form1 : Form
     {
         Veiculo veiculo;
-        Veiculos veiculos;
-       
+        Veiculos veiculos;       
         Visitantes visitantes;
         Viagens viagens;
-        TimeSpan tempoRestante;
-        TimeSpan proximaViagem;
+        //TimeSpan tempoRestante;
 
         #region construtor do form e eventos associados
 
@@ -29,8 +27,7 @@ namespace projFila4_Transporte
             viagens = new Viagens();
             veiculos = new Veiculos();
             visitantes = new Visitantes();
-            tempoRestante = new TimeSpan(0, 30, 0);
-            proximaViagem = new TimeSpan();
+            //tempoRestante = new TimeSpan(0, 30, 0);
 
 
             InitializeComponent();
@@ -104,6 +101,7 @@ namespace projFila4_Transporte
                 else
                 {
                     //iniciando o timer.
+                    timerTempoRestante.Stop();
                     timerTempoRestante.Start();
                     limpaText();
                 }
